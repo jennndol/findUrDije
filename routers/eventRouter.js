@@ -16,4 +16,10 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/add', (req, res) => {
+  res.render('./event/add', {
+    title: 'Add New Event'
+  });
+});
+
 module.exports = router;
