@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <a href="dj/addDj">Add DJ</a>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>Detail</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%dataDj.forEach(dj => {%>
+          <tr>
+            <td><%=dj.id%></td>
+            <td><%=dj.name%></td>
+            <td><%=dj.phone%></td>
+            <td><%=dj.address%></td>
+            <td><%=dj.detail%></td>
+            <td>
+              <a href="/dj/edit/<%=dj.id%>">edit</a>
+            </td>
+            <td>
+              <a href="/dj/delete/<%=dj.id%>">delete</a>
+            </td>
+          </tr>
+        <%})%>
+      </tbody>
+    </table>
+  </body>
+</html>
