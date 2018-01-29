@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const genreRouter = require('./routers/genreRouter');
+const eventRouter = require('./routers/eventRouter');
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({
@@ -13,6 +14,7 @@ app.use(bodyParser.json());
 
 
 app.use('/genres', genreRouter);
+app.use('/events', eventRouter);
 
 const dj = require('./routers/dj');
 
