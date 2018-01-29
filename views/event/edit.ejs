@@ -1,0 +1,7 @@
+<form action="/events/edit/<%= event.id %>" method="post">
+  <input type="text" name="name" placeholder="name" value="<%= event.name %>"><br>
+  <textarea name="detail" rows="8" cols="80" placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do"><%= event.detail %></textarea><br>
+  <input type="date" name="date" placeholder="date" value="<%= event.date.toISOString().slice(0,10) %>"><br>
+  <input type="number" name="DJSeekerId" placeholder="DJSeekerId" value="<%= event.DJSeekerId %>"><br>
+  <input type="submit" name="Submit">
+</form>
