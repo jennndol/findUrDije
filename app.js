@@ -11,6 +11,11 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
+
 app.use('/genres', genreRouter);
+
+const dj = require('./routers/dj');
+
+app.use('/dj', dj);
 
 app.listen(3000, () => console.log(`The App listening on port 3000!`));

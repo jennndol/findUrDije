@@ -1,7 +1,6 @@
 {
   "name": "findurdije",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,5 +12,14 @@
     "express": "^4.16.2",
     "pg": "^6.4.2",
     "sequelize": "^4.32.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jennndol/findUrDije.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jennndol/findUrDije/issues"
+  },
+  "homepage": "https://github.com/jennndol/findUrDije#readme",
+  "description": ""
 }
