@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const models = require('../models');
+const sessionChecker = require('../helpers/sessionChecker');
 
 router.get('/', (req, res) => {
   models.Event.findAll({
+      where: {
+        DJSeekerId: req.session.UserId
+      },
       include: [models.DJSeeker, models.DJ]
     })
     .then(events => {
@@ -84,6 +88,40 @@ router.get('/delete/:id', (req, res) => {
     }).catch(error => {
       res.send(error);
     });
+});
+
+router.get('/:id', (req, res) => {
+  models.Event.findById(req.params.id, {
+      include: [models.DJ]
+    })
+    .then(event => {
+      models.DJ.findAll()
+        .then(DJs => {
+          res.render('./event/detail', {
+            event: event,
+            DJs: DJs
+          });
+        })
+        .catch();
+    })
+    .catch(error => {
+      console.log(error);
+    });
+});
+
+router.post('/:id/assign', (req, res) => {
+  let obj = {
+    EventId: req.body.EventId,
+    DJId: req.body.DJId
+  };
+  models.Book.create(obj)
+  .then(affectedRow => {
+    console.log(affectedRow);
+    res.redirect(`/events/${affectedRow.EventId}`);
+  })
+  .catch(error => {
+    console.log(error);
+  });
 });
 
 module.exports = router;

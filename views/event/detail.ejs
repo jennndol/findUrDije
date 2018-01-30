@@ -1,0 +1,34 @@
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Detail</th>
+      <th>Date</th>
+      <th>DJs</th>
+    </tr>
+    <tr>
+      <td>
+        <%= event.name %>
+      </td>
+      <td>
+        <%= event.detail %>
+      </td>
+      <td>
+        <%= event.date %>
+      </td>
+      <td>
+        <%= JSON.stringify(event.DJs) %>
+      </td>
+    </tr>
+  </table>
+  <hr>
+  <hr>
+  <h3>Assign DJ</h3>
+  <form action="/events/<%= event.id %>/assign" method="post">
+    <input type="hidden" name="EventId" value="<%= event.id %>">
+    <select name="DJId">
+      <% DJs.map(DJ => { %>
+        <option value="<%= DJ.id %>"><%= DJ.name %></option>
+      <% }); %>
+    </select>
+    <input type="submit">
+  </form>

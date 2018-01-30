@@ -25,10 +25,8 @@ router.get('/', sessionChecker, (req, res) => {
   })
 });
 
-router.get('/add', sessionChecker, (req, res) => {
-  res.render('./book/addBook', {
-    title: 'Add Book'
-  });
+router.get('/accept/:id', (req, res) => {
+  
 });
 
 module.exports = router;
