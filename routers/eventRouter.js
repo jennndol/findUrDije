@@ -4,12 +4,10 @@ const models = require('../models');
 
 router.get('/', (req, res) => {
   models.Event.findAll({
-      include: [models.DJSeeker]
+      include: [models.DJSeeker, models.DJ]
     })
     .then(events => {
-      res.render('./event/index', {
-        events: events
-      });
+      res.send(events);
     })
     .catch(error => {
       res.send(error);

@@ -60,6 +60,7 @@ router.post('/login', (req, res) => {
           req.session.UserId = user.id;
           req.session.username = user.username;
           req.session.email = user.email;
+          req.session.TypeId = user.TypeId;
           res.redirect('/events');
           console.log(req.session);
         } else {
