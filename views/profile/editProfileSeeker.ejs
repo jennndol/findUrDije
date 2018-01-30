@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <table>
+      <thead>Edit Profile: </thead>
+      <tbody>
+        <form class="" action="/<%=username%>/edit" method="post">
+          <input type="text" placeholder="input name" name="name" value="<%=dataSeeker.name%>">
+          <input type="text" placeholder="input phone" name="phone" value="<%=dataSeeker.phone%>">
+          <input type="text" placeholder="input address" name="address" value="<%=dataSeeker.address%>">
+          <button>Submit</button>
+        </form>
+      </tbody>
+    </table>
+  </body>
+</html>
