@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <a href="books/add/<%=data.id%>">Add Book</a>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Event ID</th>
+          <th>DJ ID</th>
+          <th>Approved</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%data.forEach(data => {%>
+          <tr>
+            <td><%=data.id%></td>
+            <td><%=data.EventId%></td>
+            <td><%=data.DJId%></td>
+            <td><%=data.isApproved%></td>
+            <td>
+              <a href="/books/<%=data.id%>/edit">edit</a>
+              <a href="/books/<%=data.id%>/delete">delete</a>
+            </td>
+          </tr>
+        <%})%>
+      </tbody>
+    </table>
+  </body>
+</html>

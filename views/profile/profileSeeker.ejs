@@ -5,7 +5,6 @@
     <title></title>
   </head>
   <body>
-    <a href="djs/addDj">Add DJ</a>
     <table>
       <thead>
         <tr>
@@ -13,24 +12,19 @@
           <th>Name</th>
           <th>Phone</th>
           <th>Address</th>
-          <th>Detail</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <%dataDj.forEach(dj => {%>
           <tr>
-            <td><%=dj.id%></td>
-            <td><%=dj.name%></td>
-            <td><%=dj.phone%></td>
-            <td><%=dj.address%></td>
-            <td><%=dj.detail%></td>
+            <td><%=dataSeeker.id%></td>
+            <td><%=dataSeeker.name%></td>
+            <td><%=dataSeeker.phone%></td>
+            <td><%=dataSeeker.address%></td>
             <td>
-              <a href="/djs/edit/<%=dj.id%>">edit</a>
-              <a href="/djs/delete/<%=dj.id%>">delete</a>
+              <a href="/<%=username%>/edit">edit</a>
             </td>
           </tr>
-        <%})%>
       </tbody>
     </table>
   </body>

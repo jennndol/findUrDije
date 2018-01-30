@@ -8,13 +8,13 @@ router.get('/', (req, res) =>{
   }).catch(err =>{console.log(err)})
 })
 
-router.get('/addDj', (req, res) =>{
+router.get('/add', (req, res) =>{
   models.DJ.findAll().then(dataDj =>{
-    res.render('dj/addDj', {title:'Add DJ', dataDj: dataDj})
+    res.render('dj/add', {title:'Add DJ', dataDj: dataDj})
   }).catch(err =>{console.log(err)})
 })
 
-router.post('/addDj', (req, res) =>{
+router.post('/add', (req, res) =>{
   let objDj = {
     name : req.body.name,
     phone : req.body.phone,
@@ -22,7 +22,7 @@ router.post('/addDj', (req, res) =>{
     detail : req.body.detail
   }
   models.DJ.create(objDj).then(dataDj =>{
-    res.redirect('/dj')
+    res.redirect('/djs')
   })
 })
 
@@ -40,13 +40,13 @@ router.post('/edit/:id', (req, res) =>{
     detail : req.body.detail
   }
   models.DJ.update(objDj, {where: {id: req.params.id}}).then(dataDj =>{
-    res.redirect('/dj')
+    res.redirect('/djs')
   })
 })
 
 router.post('delete/:id', (req, res) =>{
   models.DJ.destroy(req.params.id).then(dataDj =>{
-    res.redirect('/dj')
+    res.redirect('/djs')
   })
 })
 

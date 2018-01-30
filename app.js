@@ -6,6 +6,9 @@ const session = require('express-session');
 
 const genreRouter = require('./routers/genreRouter');
 const eventRouter = require('./routers/eventRouter');
+
+const book = require('./routers/book');
+const index = require('./routers/index');
 const authRouter = require('./routers/authRouter');
 const djRouter = require('./routers/dj');
 
@@ -15,7 +18,6 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json());
-
 app.use(session({
   secret: 'ilovescotchscotchyscotchscotch',
   cookie: {
@@ -24,9 +26,11 @@ app.use(session({
 }));
 app.use(cookieParser());
 
+app.use('/', index);
 app.use('/genres', genreRouter);
 app.use('/events', eventRouter);
+app.use('/books', book);
 app.use('/auth', authRouter);
-app.use('/dj', djRouter);
+app.use('/djs', djRouter);
 
 app.listen(3000, () => console.log(`The App listening on port 3000!`));
