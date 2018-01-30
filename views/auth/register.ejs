@@ -1,0 +1,13 @@
+<form action="/auth/register" method="post">
+  <input type="text" name="username" placeholder="username"><br>
+  <input type="text" name="email" placeholder="email"><br>
+  <input type="password" name="password" placeholder="password"><br>
+  <p>Sign up as:</p>
+  <select name="TypeId">
+    <% types.forEach(type => { %>
+      <option value="<%= type.id %>"><%= type.name %></option>
+    <% }); %>
+  </select>
+  <br>
+  <input type="submit" value="Submit">
+</form>

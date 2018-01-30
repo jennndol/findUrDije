@@ -9,14 +9,12 @@ module.exports = {
       Example:
       */
     return queryInterface.bulkInsert('Books', [{
-      id: 1,
       EventId: 1,
       DJId: 1,
       isApproved: false,
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      id: 2,
       EventId: 1,
       DJId: 2,
       isApproved: false,
