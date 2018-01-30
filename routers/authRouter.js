@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+
 const models = require('../models');
 const sessionChecker = require('../helpers/sessionChecker');
 const loginChecker = require('../helpers/loginChecker');
@@ -43,7 +46,11 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res) => {
   models.User.findOne({
       where: {
-        email: req.body.email
+        [Op.or]: [{
+          email: req.body.email
+        }, {
+          username: req.body.email
+        }]
       }
     })
     .then(user => {
