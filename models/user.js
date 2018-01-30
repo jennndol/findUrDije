@@ -106,14 +106,12 @@ module.exports = (sequelize, DataTypes) => {
 
   User.beforeCreate((user, options) => {
     user.username = user.username.toLowerCase();
-  });
-
-  User.beforeCreate((user, options) => {
     user.email = user.email.toLowerCase();
   });
 
   User.afterCreate((user, options) => {
     let obj = {
+      name: user.username,
       UserId: user.id
     };
 
