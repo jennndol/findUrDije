@@ -5,6 +5,7 @@ const Op = Sequelize.Op;
 
 const models = require('../models');
 const loginChecker = require('../helpers/loginChecker');
+const sessionChecker = require('../helpers/sessionChecker');
 
 router.get('/register', loginChecker, (req, res) => {
   models.Type.findAll()

@@ -7,18 +7,24 @@ const sessionChecker = require('../helpers/sessionChecker');
 router.get('/', sessionChecker, (req, res) => {
   djChecker(req.session.TypeId, (isDJ) => {
     if (isDJ) {
-      models.Book.findAll({
-          where: {
-            DJId: req.session.UserId
-          },
-          include: [models.Event]
-        })
-        .then(books => {
-          res.send(books);
-        })
-        .catch(error => {
-          res.send(error);
-        })
+      models.DJ.findOne({where:{UserId: req.session.UserId}})
+      .then(dj => {
+        models.Book.findAll({
+            where: {
+              DJId: dj.id
+            },
+            include: [models.Event]
+          })
+          .then(books => {
+            console.log(books);
+            res.render('./book/index', {title: 'Undangan'})
+          })
+          .catch(error => {
+            res.send(error);
+          })
+      })
+      .catch(error => {
+      });
     } else {
       res.redirect('/events');
     }
@@ -26,7 +32,7 @@ router.get('/', sessionChecker, (req, res) => {
 });
 
 router.get('/accept/:id', (req, res) => {
-  
+
 });
 
 module.exports = router;
