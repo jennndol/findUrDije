@@ -73,7 +73,7 @@ router.post('/login', loginChecker, (req, res) => {
     });
 });
 
-router.get('/logout', loginChecker, (req, res) => {
+router.get('/logout', (req, res) => {
   req.session.destroy(error => {
     error ? res.send(error) : res.redirect('/auth/login');
   })
