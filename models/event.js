@@ -1,9 +1,25 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Event = sequelize.define('Event', {
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Nama event tidak boleh kosong'
+        }
+      }
+    },
     detail: DataTypes.TEXT,
-    date: DataTypes.DATE,
+    date: {
+      type: DataTypes.DATE,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Tanggal tidak boleh kosong'
+        }
+      }
+    },
     DJSeekerId: DataTypes.INTEGER
   });
 

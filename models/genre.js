@@ -1,7 +1,19 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Genre = sequelize.define('Genre', {
-    name: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Genre tidak boleh kosong'
+        },
+        isAlpha: {
+          args: true,
+          msg: 'Genre tidak boleh angka'
+        }
+      }
+    }
   });
 
   Genre.associate = (models) => {
