@@ -1,39 +1,76 @@
 const express = require('express');
 const router = express.Router();
 const models = require('../models');
+const sessionChecker = require('../helpers/sessionChecker');
+const djChecker = require('../helpers/djChecker');
 
-router.get('/', (req, res) => {
-  models.Event.findAll({
-      include: [models.DJSeeker, models.DJ]
-    })
-    .then(events => {
-      res.send(events);
-    })
-    .catch(error => {
-      res.send(error);
-    });
+router.get('/', sessionChecker, (req, res) => {
+  djChecker(req.session.TypeId, (isDJ) => {
+    if (!isDJ) {
+      models.DJSeeker.findOne({
+          where: {
+            UserId: req.session.UserId
+          }
+        })
+        .then(djSeeker => {
+          models.Event.findAll({
+              where: {
+                DJSeekerId: djSeeker.id
+              },
+              include: [models.DJSeeker]
+            })
+            .then(events => {
+              res.render('./event/index', {
+                events: events, title: 'Your Event List'
+              });
+            })
+            .catch(error => {
+              res.send(error);
+            });
+        })
+        .catch(error => {
+          console.log(error);
+        })
+    }
+  })
 });
 
-router.get('/add', (req, res) => {
+router.get('/add', sessionChecker, (req, res) => {
   res.render('./event/add', {
     title: 'Add New Event'
   });
 });
 
 router.post('/add', (req, res) => {
-  let obj = {
-    name: req.body.name,
-    detail: req.body.detail,
-    date: req.body.date,
-    DJSeekerId: req.body.DJSeekerId
-  };
-  models.Event.create(obj)
-    .then(row => {
-      res.send(row)
-    })
-    .catch(error => {
-      res.send(error);
-    });
+  djChecker(req.session.TypeId, (isDJ) => {
+    if (!isDJ) {
+      models.DJSeeker.findOne({
+          where: {
+            UserId: req.session.UserId
+          }
+        })
+        .then(djSeeker => {
+          let obj = {
+            name: req.body.name,
+            detail: req.body.detail,
+            date: req.body.date,
+            DJSeekerId: djSeeker.id
+          };
+          models.Event.create(obj)
+            .then(row => {
+              res.send(row);
+            })
+            .catch(error => {
+              res.send(error);
+            });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    } else {
+      console.log('Bukan DJ');
+    }
+  })
 });
 
 router.get('/edit/:id', (req, res) => {
@@ -83,6 +120,40 @@ router.get('/delete/:id', (req, res) => {
       res.send(events);
     }).catch(error => {
       res.send(error);
+    });
+});
+
+router.get('/:id', (req, res) => {
+  models.Event.findById(req.params.id, {
+      include: [models.DJ]
+    })
+    .then(event => {
+      models.DJ.findAll()
+        .then(DJs => {
+          res.render('./event/detail', {
+            event: event,
+            DJs: DJs
+          });
+        })
+        .catch();
+    })
+    .catch(error => {
+      console.log(error);
+    });
+});
+
+router.post('/:id/assign', (req, res) => {
+  let obj = {
+    EventId: req.body.EventId,
+    DJId: req.body.DJId
+  };
+  models.Book.create(obj)
+    .then(affectedRow => {
+      console.log(affectedRow);
+      res.redirect(`/events/${affectedRow.EventId}`);
+    })
+    .catch(error => {
+      console.log(error);
     });
 });
 
