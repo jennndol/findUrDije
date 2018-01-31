@@ -21,7 +21,8 @@ router.get('/', sessionChecker, (req, res) => {
             })
             .then(events => {
               res.render('./event/index', {
-                events: events, title: 'Your Event List'
+                events: events,
+                title: 'Your Event List'
               });
             })
             .catch(error => {
@@ -31,6 +32,8 @@ router.get('/', sessionChecker, (req, res) => {
         .catch(error => {
           console.log(error);
         })
+    } else {
+      res.redirect('/books');
     }
   })
 });
