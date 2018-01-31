@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <table>
+      <thead>Edit Profile DJ: </thead>
+      <tbody>
+        <form class="" action="/<%=username%>/edit" method="post">
+          <input type="text" placeholder="input name" name="name" value="<%=dataDj.name%>">
+          <input type="text" placeholder="input phone" name="phone" value="<%=dataDj.phone%>">
+          <input type="text" placeholder="input address" name="address" value="<%=dataDj.address%>">
+          <input type="text" placeholder="input detail" name="detail" value="<%=dataDj.detail%>">
+          <button>Submit</button>
+        </form>
+      </tbody>
+    </table>
+  </body>
+</html>

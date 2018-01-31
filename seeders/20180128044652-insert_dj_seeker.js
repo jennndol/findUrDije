@@ -9,7 +9,6 @@ module.exports = {
       Example:
       */
     return queryInterface.bulkInsert('DJSeekers', [{
-      id: 1,
       name: 'John Kabira',
       phone: '019091091',
       address: 'Jakarta Selatan',
@@ -17,7 +16,6 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      id: 2,
       name: 'Muhaimin',
       phone: '019091092',
       address: 'Jakarta Selatan Banget',

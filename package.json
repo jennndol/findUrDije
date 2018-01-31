@@ -1,7 +1,6 @@
 {
   "name": "findurdije",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,9 +8,22 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^1.0.3",
+    "cookie-parser": "^1.4.3",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "moment": "^2.20.1",
     "pg": "^6.4.2",
     "sequelize": "^4.32.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jennndol/findUrDije.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jennndol/findUrDije/issues"
+  },
+  "homepage": "https://github.com/jennndol/findUrDije#readme",
+  "description": ""
 }
