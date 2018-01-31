@@ -4,14 +4,13 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 const models = require('../models');
-const sessionChecker = require('../helpers/sessionChecker');
 const loginChecker = require('../helpers/loginChecker');
 
 router.get('/register', loginChecker, (req, res) => {
   models.Type.findAll()
     .then(types => {
       res.render('./auth/register', {
-        title: 'Register findUrDije',
+        title: 'Register',
         types: types
       });
     })
@@ -37,13 +36,13 @@ router.post('/register', loginChecker, (req, res) => {
     });
 });
 
-router.get('/login', (req, res) => {
+router.get('/login', loginChecker, (req, res) => {
   res.render('./auth/login', {
     title: 'Login'
   });
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', loginChecker, (req, res) => {
   models.User.findOne({
       where: {
         [Op.or]: [{
@@ -73,7 +72,7 @@ router.post('/login', (req, res) => {
     });
 });
 
-router.get('/logout', sessionChecker, (req, res) => {
+router.get('/logout', loginChecker, (req, res) => {
   req.session.destroy(error => {
     error ? res.send(error) : res.redirect('/auth/login');
   })

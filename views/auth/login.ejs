@@ -1,5 +1,35 @@
-<form action=""="/auth/login" method="post">
-  <input type="text" name="email" placeholder="email or username"><br>
-  <input type="password" name="password" placeholder="password"><br>
-  <input type="submit">
-</form>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../partials/head %>
+    <title><%= title %></title>
+</head>
+
+<body class="full-screen login">
+  <% include ../partials/nav-login %>
+    <div class="wrapper">
+      <div class="page-header" style="background-image: url('../assets/img/sections/bruno-abatti.jpg');">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4 col-sm-6 ml-auto mr-auto">
+              <div class="card card-register">
+                <h3 class="card-title">Login</h3>
+                <form class="register-form" action="/auth/login" method="post">
+                  <label>Email</label>
+                  <input type="email" class="form-control no-border" placeholder="Email" name="email">
+                  <label>Password</label>
+                  <input type="password" class="form-control no-border" placeholder="Password" name="password">
+                  <button class="btn btn-danger btn-block btn-round">Login</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <% include ../partials/footer %>
+        </div>
+      </div>
+    </div>
+</body>
+<% include ../partials/scripts %>
+
+</html>

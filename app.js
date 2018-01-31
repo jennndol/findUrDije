@@ -18,12 +18,13 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 app.use(session({
-  secret: 'ilovescotchscotchyscotchscotch',
+  secret: 'hackTiv8IsTheBestIloVeIt',
   cookie: {
     maxAge: 60000
   }
 }));
 app.use(cookieParser());
+app.use(express.static('public'));
 
 app.use('/books', bookRouter);
 app.use('/genres', genreRouter);
