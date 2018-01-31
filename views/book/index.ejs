@@ -1,1 +1,30 @@
-GUE DISINI
+<%= JSON.stringify(books) %>
+<table>
+  <tr>
+    <th>No</th>
+    <th>Nama</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+  <% books.forEach(book => { %>
+    <tr>
+      <td></td>
+      <td>
+        <%= book.Event.name %>
+      </td>
+      <td>
+        <% if (book.isApproved == null) { %>
+          MENUNGGU
+          <% } else if(book.isApproved == false) { %>
+            DITOLAK
+            <% } else { %>
+              DITERIMA
+              <% } %>
+      </td>
+      <td>
+        <a href="/books/accept/<%= book.EventId %>">TERIMA</a>
+        <a href="/books/ignore/<%= book.EventId %>">TOLAK</a>
+      </td>
+    </tr>
+    <% }); %>
+</table>

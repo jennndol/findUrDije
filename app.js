@@ -10,6 +10,34 @@ const eventRouter = require('./routers/eventRouter');
 const djRouter = require('./routers/dj');
 const bookRouter = require('./routers/bookRouter');
 const authRouter = require('./routers/authRouter');
+const mailer = require('express-mailer');
+
+mailer.extend(app, {
+  from: 'findUrDije@gmail.com',
+  host: 'smtp.gmail.com',
+  secureConnection: true,
+  port: 465,
+  transportMethod: 'SMTP',
+  auth: {
+    user: 'findUrDije@gmail.com',
+    pass: 'Hacktiv8Super'
+  }
+});
+
+app.get('/email', (req, res) => {
+  app.mailer.send('email', {
+    to: 'mrjennndol@gmail.com',
+    subject: 'FINDURDIJE',
+    message: 'Lorem ipsum dolor sit amet'
+  }, function(err) {
+    if (err) {
+      res.send('There was an error sending the email');
+      return;
+    }
+    res.send('Email Sent');
+  });
+});
+
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({
