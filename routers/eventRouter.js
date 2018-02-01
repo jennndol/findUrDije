@@ -25,7 +25,8 @@ router.get('/', sessionChecker, (req, res) => {
                 events: events,
                 title: 'Your Event List',
                 session: req.session.username,
-                isDJ: req.session.isDJ
+                isDJ: req.session.isDJ,
+                successMessage: req.flash().successMessage
               });
             })
             .catch(error => {
@@ -68,7 +69,8 @@ router.post('/add', (req, res) => {
           };
           models.Event.create(obj)
             .then(row => {
-              res.send(row);
+              req.flash('successMessage', 'berhasil menambahkan event');
+              res.redirect('/events');
             })
             .catch(error => {
               req.flash('errorMessage', error.message);
@@ -113,10 +115,11 @@ router.post('/edit/:id', (req, res) => {
     })
     .then((affectedRowTotal) => {
       console.log(affectedRowTotal);
-      res.send(`${affectedRowTotal} record terubah`);
+      req.flash('successMessage', `berhasil mengubah event`);
+      res.redirect('/events')
     })
     .catch(error => {
-      res.send(error);
+      res.send(`Error 404`);
     });
 });
 
@@ -131,9 +134,10 @@ router.get('/delete/:id', (req, res) => {
       return models.Event.findAll();
     })
     .then(events => {
-      res.send(events);
+      req.flash('successMessage', `berhasil menghapus event`);
+      res.redirect('/events')
     }).catch(error => {
-      res.send(error);
+      res.send('Error 404');
     });
 });
 

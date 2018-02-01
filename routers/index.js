@@ -1,12 +1,13 @@
 const models = require('../models');
 const express = require('express');
 const router = express.Router();
+const sessionChecker = require('../helpers/sessionChecker');
 
 router.get('/', (req, res) =>{
   res.redirect('/auth/login')
 })
 
-router.get('/:username', (req, res) =>{
+router.get('/:username', sessionChecker, (req, res) =>{
   models.User.findOne({
   where: {username: req.params.username},
   attributes: ['id', 'username', 'TypeId']})
@@ -28,7 +29,7 @@ router.get('/:username', (req, res) =>{
   }).catch(err =>{res.send(err)})
 })
 
-router.get('/:username/edit', (req, res) =>{
+router.get('/:username/edit',sessionChecker, (req, res) =>{
   models.User.findOne({
   where: {username: req.params.username},
   attributes: ['id', 'username', 'TypeId']})
@@ -50,7 +51,7 @@ router.get('/:username/edit', (req, res) =>{
   }).catch(err =>{res.send(err)})
 })
 
-router.post('/:username/edit', (req, res) =>{
+router.post('/:username/edit', sessionChecker,(req, res) =>{
   models.User.findOne({
   where: {username: req.params.username},
   attributes: ['id', 'username', 'TypeId']})

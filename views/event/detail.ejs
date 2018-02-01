@@ -29,7 +29,13 @@
             <%if (locals.event.DJs.length >= 1) { %>
               <ol>
               <% event.DJs.forEach(value => { %>
-                <li><%= value.name %></li>
+                <li><%= value.name %> <% if (value.Book.isApproved == null){ %>
+                  <span class="label label-default">MENUNGGU</span>
+                <% } else if(value.Book.isApproved == false) { %>
+                    <span class="label label-danger">DITOLAK</span>
+                <% } else { %>
+                    <span class="label label-info">DITERIMA</span>
+                <% } %></li>
                 <% }) %>
                 </ol>
             <% } else { %>

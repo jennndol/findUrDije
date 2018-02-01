@@ -21,7 +21,6 @@
               <td>Name</td>
               <td>Detail</td>
               <td>Date</td>
-              <td>Created By</td>
               <td>Action</td>
             </tr>
             <% events.forEach((event, i) => { %>
@@ -40,9 +39,6 @@
                   <%= event.date %>
                 </td>
                 <td>
-                  <%= event.DJSeeker.name %>
-                </td>
-                <td>
                   <a href="/events/edit/<%= event.id %>">Edit</a>
                   <a href="/events/delete/<%= event.id %>">Delete</a>
                 </td>
@@ -50,6 +46,7 @@
               <% }); %>
           </table>
           <% } %>
+          <a href="/events/add" class="btn btn-block btn-primary" style="margin-bottom:3em;">Add Event</a>
     </div>
     <% include ../partials/footer %>
 </body>

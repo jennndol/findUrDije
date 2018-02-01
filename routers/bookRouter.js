@@ -43,7 +43,7 @@ router.get('/', sessionChecker, (req, res) => {
   })
 });
 
-router.get('/accept/:id', (req, res) => {
+router.get('/accept/:id',sessionChecker, (req, res) => {
   models.Book.findById(req.params.id)
     .then(book => {
         book.isApproved = true;
@@ -61,7 +61,7 @@ router.get('/accept/:id', (req, res) => {
     });
 });
 
-router.get('/ignore/:id', (req, res) => {
+router.get('/ignore/:id',sessionChecker, (req, res) => {
   models.Book.findById(req.params.id)
     .then(book => {
       book.isApproved = false;
