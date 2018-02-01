@@ -6,13 +6,13 @@ router.get('/', (req, res) =>{
   models.DJ.findAll({
     include: [models.User]
   }).then(dataDj =>{
-    res.render('dj/dj', {title:'List DJ', dataDj: dataDj})
+    res.render('dj/dj', {title:'List DJ', dataDj: dataDj, session: req.session.username})
   }).catch(err =>{console.log(err)})
 })
 
 router.get('/add', (req, res) =>{
   models.DJ.findAll().then(dataDj =>{
-    res.render('dj/addDj', {title:'Add DJ', dataDj: dataDj})
+    res.render('dj/addDj', {title:'Add DJ', dataDj: dataDj, session: req.session.username})
   }).catch(err =>{console.log(err)})
 })
 
@@ -30,7 +30,7 @@ router.post('/add', (req, res) =>{
 
 router.get('/edit/:id', (req, res) =>{
   models.DJ.findById(req.params.id).then(dataDj =>{
-    res.render('dj/editDj', {title: 'Edit DJ', dataDj: dataDj})
+    res.render('dj/editDj', {title: 'Edit DJ', dataDj: dataDj, session: req.session.username})
   }).catch(err => {console.log(err);})
 })
 

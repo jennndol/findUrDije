@@ -6,7 +6,8 @@ router.get('/', (req, res) => {
   models.Genre.findAll()
     .then(genres => {
       res.render('./genre/index', {
-        genres: genres
+        genres: genres,
+        session: req.session.username
       });
     })
     .catch(error => {
@@ -38,7 +39,8 @@ router.get('/edit/:id', (req, res) => {
   models.Genre.findById(req.params.id)
     .then(genre => {
       res.render('./genre/edit', {
-        genre: genre
+        genre: genre,
+        session: req.session.username
       });
     })
     .catch(error => {

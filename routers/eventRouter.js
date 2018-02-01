@@ -23,7 +23,8 @@ router.get('/', sessionChecker, (req, res) => {
             .then(events => {
               res.render('./event/index', {
                 events: events,
-                title: 'Your Event List'
+                title: 'Your Event List',
+                session: req.session.username
               });
             })
             .catch(error => {
@@ -43,7 +44,10 @@ router.get('/add', sessionChecker, (req, res) => {
   res.render('./event/add', {
     title: 'Add New Event',
     min: moment().format("YYYY-MM-DD"),
+
+    session: req.session.username,
     errorMessage: req.flash().errorMessage
+
   });
 });
 
@@ -85,7 +89,8 @@ router.get('/edit/:id', (req, res) => {
   models.Event.findById(req.params.id)
     .then(event => {
       res.render('./event/edit', {
-        event: event
+        event: event,
+        session: req.session.username
       });
     })
     .catch(error => {
@@ -141,6 +146,7 @@ router.get('/:id', (req, res) => {
           res.render('./event/detail', {
             event: event,
             DJs: DJs,
+            session: req.session.username,
             errorMessage: req.flash().errorMessage
           });
         })

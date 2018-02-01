@@ -38,12 +38,12 @@ router.get('/:username/edit', (req, res) =>{
       if(type.name == 'DJ'){
         models.DJ.findOne({where: {UserId: data.id} })
         .then(dataDj =>{
-          res.render('profile/editProfileDJ', {title: 'Edit Profile', dataDj: dataDj, username: data.username})
+          res.render('profile/editProfileDJ', {title: 'Edit Profile', dataDj: dataDj, username: data.username, session: req.session.username})
         })
       }else{
         models.DJSeeker.findOne({where: {UserId: data.id} })
         .then(dataSeeker =>{
-          res.render('profile/editProfileSeeker', {title: 'Edit Profile', dataSeeker: dataSeeker, username: data.username})
+          res.render('profile/editProfileSeeker', {title: 'Edit Profile', dataSeeker: dataSeeker, username: data.username, session: req.session.username})
         })
       }
     })

@@ -25,7 +25,8 @@ router.get('/', sessionChecker, (req, res) => {
                 title: 'Undangan',
                 books: books,
                 successMessage: req.flash().successMessage,
-                errorMessage: req.flash().errorMessage
+                errorMessage: req.flash().errorMessage,
+                session: req.session.username
               })
             })
             .catch(error => {
