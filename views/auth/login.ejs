@@ -6,30 +6,43 @@
     <title><%= title %></title>
 </head>
 
-<body class="full-screen login">
-  <% include ../partials/nav-login %>
-    <div class="wrapper">
-      <div class="page-header" style="background-image: url('../assets/img/sections/bruno-abatti.jpg');">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-4 col-sm-6 ml-auto mr-auto">
-              <div class="card card-register">
-                <h3 class="card-title">Login</h3>
-                <form class="register-form" action="/auth/login" method="post">
-                  <label>Email</label>
-                  <input type="email" class="form-control no-border" placeholder="Email" name="email">
-                  <label>Password</label>
-                  <input type="password" class="form-control no-border" placeholder="Password" name="password">
-                  <button class="btn btn-danger btn-block btn-round">Login</button>
-                </form>
+<body>
+  <% include ../partials/nav %>
+    <div class="container">
+      <div class="col-md-4 col-md-offset-4">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h3>Login</h3>
+            <form action="/auth/login" method="post">
+              <div class="form-group">
+                <label for="email">Email address:</label>
+                <input type="email" name="email" class="form-control" id="email">
               </div>
+              <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" name="password" class="form-control" id="pwd">
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Remember me</label>
+              </div>
+              <button type="submit" class="btn btn-block btn-success">Login</button>
+            </form>
+            <div>
+              <p>Belum punya akun? <a href="/auth/register">Sign up</a>.</p>
             </div>
+            <% if(locals.errorMessage){ %>
+              <hr>
+              <div class="alert alert-danger">
+                <strong>Oops!</strong>
+                <%= errorMessage %>.
+              </div>
+            <% } %>
           </div>
-          <% include ../partials/footer %>
         </div>
       </div>
     </div>
+    <% include ../partials/footer %>
 </body>
-<% include ../partials/scripts %>
 
 </html>
