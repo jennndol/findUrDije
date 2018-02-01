@@ -8,53 +8,73 @@
     </title>
 </head>
 
-<body class="full-screen login">
-  <% include ../partials/nav-register %>
-    <div class="wrapper">
-      <div class="page-header" style="background-image: url('../assets/img/sections/bruno-abatti.jpg');">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-4 col-sm-6 ml-auto mr-auto">
-              <div class="card card-register">
-                <h3 class="card-title">Register</h3>
-                <br>
-                <form action="/auth/register" method="post" class="register-form">
-                  <input type="text" class="form-control" name="username" placeholder="username"><br>
-                  <input type="text" class="form-control" name="email" placeholder="email"><br>
-                  <input type="password" class="form-control" name="password" placeholder="password"><br>
-                  <p>Sign up as :</p>
-                  <% types.forEach(type => { %>
-                    <% if (type.name == 'DJ') { %>
-                      <div class="form-check-radio">
-                        <label class="form-check-label">
-                              <input type="radio" class="form-check-input" name="TypeId" value="<%= type.id %>">
-                              <%= type.name %>
-                              <span class="form-check-sign"></span>
-                          </label>
-                      </div>
-                      <% } else { %>
-                        <div class="form-check-radio">
-                          <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="TypeId" value="<%= type.id %>" checked>
-                                <%= type.name %>
-                                  <span class="form-check-sign"></span>
-                              </label>
-                        </div>
-                        <% } %>
-                          <% }); %>
-                            <button type="submit" class="btn btn-block btn-round">Register</button>
-                </form>
-                <div class="login">
-                  <p>Already have an account? <a href="#0">Log in</a>.</p>
-                </div>
+<body>
+  <% include ../partials/nav %>
+    <div class="container">
+      <div class="col-md-4 col-md-offset-4">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h3>Register</h3>
+            <form action="/auth/register" method="post">
+              <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" name="username" class="form-control" id="username">
               </div>
+              <div class="form-group">
+                <label for="email">Email address:</label>
+                <input type="email" name="email" class="form-control" id="email">
+              </div>
+              <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" name="password" class="form-control" id="pwd">
+              </div>
+              <p>Sign up as :</p>
+              <% types.forEach(type => { %>
+                <% if (type.name == 'DJ') { %>
+                  <div class="form-check-radio">
+                    <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="TypeId" value="<%= type.id %>">
+                            <%= type.name %>
+                            <span class="form-check-sign"></span>
+                        </label>
+                  </div>
+                  <% } else { %>
+                    <div class="form-check-radio">
+                      <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="TypeId" value="<%= type.id %>" checked>
+                              <%= type.name %>
+                                <span class="form-check-sign"></span>
+                            </label>
+                    </div>
+                    <% } %>
+                      <% }); %>
+                        <button type="submit" class="btn btn-block btn-primary">Submit</button>
+            </form>
+            <div>
+              <p>Already have an account? <a href="/auth/login">Log in</a>.</p>
             </div>
+
+            <% if(locals.errorMessage){ %>
+              <hr>
+              <div class="alert alert-danger">
+                <strong>Oops!</strong><br>
+                <%= errorMessage %>.
+              </div>
+              <% } %>
+                <% if(locals.successMessage){ %>
+                  <hr>
+                  <div class="alert alert-success">
+                    <strong>Yeay!</strong><br>
+                    <%= successMessage %> <a href="/auth/login">Login</a>
+                  </div>
+                  <% } %>
+
           </div>
-          <% include ../partials/footer %>
         </div>
       </div>
     </div>
+    </div>
+    <% include ../partials/footer %>
 </body>
-<% include ../partials/scripts %>
 
 </html>

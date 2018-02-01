@@ -6,17 +6,21 @@ const Op = Sequelize.Op;
 const models = require('../models');
 const loginChecker = require('../helpers/loginChecker');
 const sessionChecker = require('../helpers/sessionChecker');
+const djChecker = require('../helpers/djChecker');
 
 router.get('/register', loginChecker, (req, res) => {
   models.Type.findAll()
     .then(types => {
       res.render('./auth/register', {
         title: 'Register',
-        types: types
+        types: types,
+        errorMessage: req.flash().errorMessage,
+        successMessage: req.flash().successMessage
       });
     })
     .catch(err => {
-      res.send(error)
+      req.flash('errorMessage', 'Belum ada tipe pengguna untuk dipilih.');
+      res.redirect('/auth/register');
     });
 });
 
@@ -30,16 +34,19 @@ router.post('/register', loginChecker, (req, res) => {
 
   models.User.create(obj)
     .then(user => {
-      res.send(user);
+      req.flash('successMessage', 'Anda telah berhasil membuat akun.');
+      res.redirect('/auth/register');
     })
     .catch(error => {
-      res.send(error);
+      req.flash('errorMessage', error.message);
+      res.redirect('/auth/register');
     });
 });
 
 router.get('/login', loginChecker, (req, res) => {
   res.render('./auth/login', {
-    title: 'Login'
+    title: 'Login',
+    errorMessage: req.flash().errorMessage
   });
 });
 
@@ -56,20 +63,25 @@ router.post('/login', loginChecker, (req, res) => {
     .then(user => {
       user.login(req.body.password, (result) => {
         if (result) {
-          req.session.isLoggedIn = result;
-          req.session.UserId = user.id;
-          req.session.username = user.username;
-          req.session.email = user.email;
-          req.session.TypeId = user.TypeId;
-          res.redirect('/events');
-          console.log(req.session);
+          djChecker(user.TypeId, (isDJ) => {
+            req.session.isLoggedIn = result;
+            req.session.UserId = user.id;
+            req.session.username = user.username;
+            req.session.email = user.email;
+            req.session.TypeId = user.TypeId;
+            req.session.isDJ = isDJ;
+            console.log(req.session);
+            res.redirect('/events');
+          })
         } else {
+          req.flash('errorMessage', 'username atau password salah');
           res.redirect('/auth/login');
         }
       });
     })
     .catch(error => {
-      res.send(error);
+      req.flash('errorMessage', 'username atau password salah');
+      res.redirect('/auth/login');
     });
 });
 

@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+var flash        = require('req-flash');
+
 
 const index = require('./routers/index');
 const genreRouter = require('./routers/genreRouter');
@@ -23,7 +25,10 @@ app.use(session({
     maxAge: 60000
   }
 }));
+
 app.use(cookieParser());
+app.use(flash());
+
 app.use(express.static('public'));
 
 app.use('/books', bookRouter);
