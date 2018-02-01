@@ -3,6 +3,7 @@ const router = express.Router();
 const models = require('../models');
 const sessionChecker = require('../helpers/sessionChecker');
 const djChecker = require('../helpers/djChecker');
+const moment = require('moment');
 
 router.get('/', sessionChecker, (req, res) => {
   djChecker(req.session.TypeId, (isDJ) => {
@@ -40,7 +41,8 @@ router.get('/', sessionChecker, (req, res) => {
 
 router.get('/add', sessionChecker, (req, res) => {
   res.render('./event/add', {
-    title: 'Add New Event'
+    title: 'Add New Event',
+    min: moment().format("YYYY-MM-DD")
   });
 });
 
@@ -68,7 +70,7 @@ router.post('/add', (req, res) => {
             });
         })
         .catch(error => {
-          console.log(error);
+          res.send(error);
         });
     } else {
       console.log('Bukan DJ');

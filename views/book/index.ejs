@@ -1,25 +1,40 @@
-<%= JSON.stringify(books) %>
-<table>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../partials/head %>
+    <title><%= title %></title>
+</head>
+
+<body>
+  <% include ../partials/nav %>
+  <div class="container">
+
+<table class="table table-stripped">
   <tr>
     <th>No</th>
     <th>Nama</th>
+    <th>Tanggal</th>
     <th>Status</th>
     <th>Action</th>
   </tr>
-  <% books.forEach(book => { %>
+  <% books.forEach((book, number) => { %>
     <tr>
-      <td></td>
+      <td><%= number+1 %></td>
       <td>
         <%= book.Event.name %>
       </td>
       <td>
+        <%= book.Event.dateHumanize() %>
+      </td>
+      <td>
         <% if (book.isApproved == null) { %>
-          MENUNGGU
+          <span class="label label-default">MENUNGGU</span>
           <% } else if(book.isApproved == false) { %>
-            DITOLAK
+            <span class="label label-danger">DITOLAK</span>
             <% } else { %>
-              DITERIMA
-              <% } %>
+              <span class="label label-info">DITERIMA</span>
+          <% } %>
       </td>
       <td>
         <a href="/books/accept/<%= book.EventId %>">TERIMA</a>
@@ -28,3 +43,22 @@
     </tr>
     <% }); %>
 </table>
+
+<% if(locals.errorMessage){ %>
+  <hr>
+  <div class="alert alert-danger">
+    <strong>Oops!</strong><br>
+    <%= errorMessage %>.
+  </div>
+  <% } %>
+    <% if(locals.successMessage){ %>
+      <hr>
+      <div class="alert alert-success">
+        <strong>Yeay!</strong><br>
+        <%= successMessage %>
+      </div>
+      <% } %>
+</div>
+<% include ../partials/footer %>
+</body>
+</html>

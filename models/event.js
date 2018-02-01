@@ -1,9 +1,19 @@
 'use strict';
+const moment = require('moment');
+
 module.exports = (sequelize, DataTypes) => {
   var Event = sequelize.define('Event', {
     name: DataTypes.STRING,
     detail: DataTypes.TEXT,
-    date: DataTypes.DATE,
+    date: {
+      type: DataTypes.DATE,
+      validate: {
+        isAfter: {
+          args: new Date().toISOString().slice(0,10),
+          msg: "Tidak boleh melihat masa lalu"
+        }
+      }
+    },
     DJSeekerId: DataTypes.INTEGER
   });
 
@@ -18,5 +28,10 @@ module.exports = (sequelize, DataTypes) => {
     });
   }
 
+  Event.prototype.dateHumanize = function () {
+    moment.locale('id');
+    let myDate = this.date.toISOString().slice(0,10).split('-').join("");
+    return (moment(myDate, "YYYYMMDD").fromNow());
+  };
   return Event;
 };
