@@ -7,28 +7,74 @@ const sessionChecker = require('../helpers/sessionChecker');
 router.get('/', sessionChecker, (req, res) => {
   djChecker(req.session.TypeId, (isDJ) => {
     if (isDJ) {
-      models.Book.findAll({
+      models.DJ.findOne({
           where: {
-            DJId: req.session.UserId
-          },
-          include: [models.Event]
+            UserId: req.session.UserId
+          }
         })
-        .then(books => {
-          res.send(books);
+        .then(dj => {
+          models.Book.findAll({
+              where: {
+                DJId: dj.id
+              },
+              include: [models.Event]
+            })
+            .then(books => {
+              console.log(books);
+              res.render('./book/index', {
+                title: 'Undangan',
+                books: books,
+                successMessage: req.flash().successMessage,
+                errorMessage: req.flash().errorMessage
+              })
+            })
+            .catch(error => {
+              res.send(error);
+            });
         })
         .catch(error => {
-          res.send(error);
-        })
+          console.log(error);
+        });
     } else {
       res.redirect('/events');
     }
   })
 });
 
-router.get('/add', sessionChecker, (req, res) => {
-  res.render('./book/addBook', {
-    title: 'Add Book'
-  });
+router.get('/accept/:id', (req, res) => {
+  models.Book.findById(req.params.id)
+    .then(book => {
+        book.isApproved = true;
+        book.save()
+        .then(row => {
+          req.flash('successMessage', 'Anda telah menerima undangan')
+          res.redirect('/books')
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+});
+
+router.get('/ignore/:id', (req, res) => {
+  models.Book.findById(req.params.id)
+    .then(book => {
+      book.isApproved = false;
+      book.save()
+        .then(row => {
+          req.flash('errorMessage', 'Anda telah menolak undangan');
+          res.redirect('/books');
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    })
+    .catch(error => {
+      console.log(error);
+    });
 });
 
 module.exports = router;

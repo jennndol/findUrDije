@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../partials/head %>
+    <title><%= title %></title>
+</head>
+
+<body>
+  <% include ../partials/nav %>
+  <div class="container">
+
+<table class="table table-stripped">
+  <tr>
+    <th>No</th>
+    <th>Nama</th>
+    <th>Tanggal</th>
+    <th>Status</th>
+  </tr>
+  <% books.forEach((book, number) => { %>
+    <tr>
+      <td><%= number+1 %></td>
+      <td>
+        <%= book.Event.name %>
+      </td>
+      <td>
+        <%= book.Event.dateHumanize() %>
+      </td>
+
+      <td>
+        <% if (book.isApproved == null){ %>
+          <a href="/books/accept/<%= book.EventId %>">TERIMA</a>
+          <a href="/books/ignore/<%= book.EventId %>">TOLAK</a>
+        <% } else if(book.isApproved == false) { %>
+            <span class="label label-danger">DITOLAK</span>
+        <% } else { %>
+            <span class="label label-info">DITERIMA</span>
+        <% } %>
+      </td>
+    </tr>
+    <% }); %>
+</table>
+
+<% if(locals.errorMessage){ %>
+  <hr>
+  <div class="alert alert-danger">
+    <strong>Oops!</strong><br>
+    <%= errorMessage %>.
+  </div>
+  <% } %>
+    <% if(locals.successMessage){ %>
+      <hr>
+      <div class="alert alert-success">
+        <strong>Yeay!</strong><br>
+        <%= successMessage %>
+      </div>
+      <% } %>
+</div>
+<% include ../partials/footer %>
+</body>
+</html>
