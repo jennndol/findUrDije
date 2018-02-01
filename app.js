@@ -40,4 +40,4 @@ app.use('/auth', authRouter);
 app.use('/djs', djRouter);
 app.use('/', index);
 
-app.listen(3000, () => console.log(`The App listening on port 3000!`));
+app.listen(process.env.PORT || '3000')
