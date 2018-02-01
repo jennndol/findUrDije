@@ -23,8 +23,8 @@ module.exports = (sequelize, DataTypes) => {
           .then(user => {
             let obj = {
               email: user.email,
-              subject: 'Konfirmasi Pertunjukan Anda',
-              message: ` ${event.DJSeeker.name}, DJ yang anda pilih telah ${isAccepted(book.isApproved)} permintaan untuk mengisi acara anda`
+              subject: 'Konfirmasi dari findUrDije',
+              message: `${event.DJSeeker.name}! DJ yang anda pilih telah ${isAccepted(book.isApproved)} permintaan untuk mengisi acara Anda.`
             }
             let emailMessage = emailSender(obj);
             console.log(emailMessage);
@@ -43,8 +43,8 @@ module.exports = (sequelize, DataTypes) => {
       .then(dj => {
         let obj = {
           email: dj.User.email,
-          subject: 'Konfirmasi Pertunjukan Anda',
-          message: ` ${dj.name}, anda telah ${isAccepted(book.isApproved)} permintaan untuk mengisi acara`
+          subject: 'Konfirmasi dari findUrDije',
+          message: `${dj.name}! Anda telah ${isAccepted(book.isApproved)} permintaan untuk mengisi acara.`
         }
         let emailMessage = emailSender(obj);
         console.log(emailMessage);
