@@ -16,7 +16,8 @@ router.get('/register', loginChecker, (req, res) => {
         types: types,
         errorMessage: req.flash().errorMessage,
         successMessage: req.flash().successMessage,
-        session: req.session.username
+        session: req.session.username,
+        isDJ: req.session.isDJ
       });
     })
     .catch(err => {
@@ -48,7 +49,8 @@ router.get('/login', loginChecker, (req, res) => {
   res.render('./auth/login', {
     title: 'Login',
     errorMessage: req.flash().errorMessage,
-    session: req.session.username
+    session: req.session.username,
+    isDJ: req.session.isDJ
   });
 });
 

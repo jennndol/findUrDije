@@ -7,7 +7,8 @@ router.get('/', (req, res) => {
     .then(genres => {
       res.render('./genre/index', {
         genres: genres,
-        session: req.session.username
+        session: req.session.username,
+        isDJ: req.session.isDJ
       });
     })
     .catch(error => {
@@ -17,7 +18,9 @@ router.get('/', (req, res) => {
 
 router.get('/add', (req, res) => {
   res.render('./genre/add', {
-    title: 'Add New Genre'
+    title: 'Add New Genre',
+    session: req.session.username,
+    isDJ: req.session.isDJ
   });
 });
 
@@ -40,7 +43,8 @@ router.get('/edit/:id', (req, res) => {
     .then(genre => {
       res.render('./genre/edit', {
         genre: genre,
-        session: req.session.username
+        session: req.session.username,
+        isDJ: req.session.isDJ
       });
     })
     .catch(error => {
