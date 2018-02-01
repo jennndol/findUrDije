@@ -1,32 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <h1>Profile</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Phone</th>
-          <th>Address</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr>
-            <td><%=dataSeeker.id%></td>
-            <td><%=dataSeeker.name%></td>
-            <td><%=dataSeeker.phone%></td>
-            <td><%=dataSeeker.address%></td>
-            <td>
+
+<head>
+  <% include ../partials/head %>
+    <%= title %>
+</head>
+
+<body>
+  <% include ../partials/nav %>
+    <div class="container">
+      <h2>Profile</h2>
+      <div class="col-md-3">
+        <img src="/profiles/jennndol.jpg" class="thumbnail img-responsive ">
+      </div>
+      <div class="col-md-9">
+        Name:
+        <%=dataSeeker.name%> <br> Phone:
+          <%=dataSeeker.phone%> <br> Address:
+            <%=dataSeeker.address%>
+              <!-- TODO: Check this -->
               <a href="/<%=username%>/edit">edit</a>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-  </body>
+      </div>
+    </div>
+</body>
+
 </html>

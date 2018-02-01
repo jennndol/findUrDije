@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const models = require('../models');
+const sessionChecker = require('../helpers/sessionChecker');
 
-router.get('/', (req, res) => {
+router.get('/', sessionChecker,(req, res) => {
   models.Genre.findAll()
     .then(genres => {
       res.render('./genre/index', {
-        genres: genres
+        genres: genres,
+        session: req.session.username,
+        isDJ: req.session.isDJ
       });
     })
     .catch(error => {
@@ -14,13 +17,15 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/add', (req, res) => {
+router.get('/add',sessionChecker, (req, res) => {
   res.render('./genre/add', {
-    title: 'Add New Genre'
+    title: 'Add New Genre',
+    session: req.session.username,
+    isDJ: req.session.isDJ
   });
 });
 
-router.post('/add', (req, res) => {
+router.post('/add', sessionChecker,(req, res) => {
   models.Genre.findOrCreate({
       where: {
         name: req.body.name
@@ -34,11 +39,13 @@ router.post('/add', (req, res) => {
     });
 });
 
-router.get('/edit/:id', (req, res) => {
+router.get('/edit/:id',sessionChecker, (req, res) => {
   models.Genre.findById(req.params.id)
     .then(genre => {
       res.render('./genre/edit', {
-        genre: genre
+        genre: genre,
+        session: req.session.username,
+        isDJ: req.session.isDJ
       });
     })
     .catch(error => {
@@ -46,7 +53,7 @@ router.get('/edit/:id', (req, res) => {
     });
 });
 
-router.post('/edit/:id', (req, res) => {
+router.post('/edit/:id', sessionChecker,(req, res) => {
   models.Genre.findAll({
       where: {
         name: req.body.name
@@ -75,7 +82,7 @@ router.post('/edit/:id', (req, res) => {
     });
 });
 
-router.get('/delete/:id', (req, res) => {
+router.get('/delete/:id', sessionChecker,(req, res) => {
   models.Genre.destroy({
       where: {
         id: req.params.id

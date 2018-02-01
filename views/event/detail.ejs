@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../partials/head %>
+</head>
+
+<body>
+  <% include ../partials/nav %>
+    <div class="container">
+      <table class="table table-stripped">
+        <tr>
+          <th>Name</th>
+          <th>Detail</th>
+          <th>Date</th>
+          <th>DJs</th>
+        </tr>
+        <tr>
+          <td>
+            <%= event.name %>
+          </td>
+          <td>
+            <%= event.detail %>
+          </td>
+          <td>
+            <%= event.date %>
+          </td>
+          <td>
+            <%if (locals.event.DJs.length >= 1) { %>
+              <ol>
+              <% event.DJs.forEach(value => { %>
+                <li><%= value.name %> <% if (value.Book.isApproved == null){ %>
+                  <span class="label label-default">MENUNGGU</span>
+                <% } else if(value.Book.isApproved == false) { %>
+                    <span class="label label-danger">DITOLAK</span>
+                <% } else { %>
+                    <span class="label label-info">DITERIMA</span>
+                <% } %></li>
+                <% }) %>
+                </ol>
+            <% } else { %>
+              Belum ada DJ yang dipilih
+            <% }%>
+          </td>
+        </tr>
+      </table>
+      <hr>
+      <hr>
+      <h3>Assign DJ</h3>
+      <form action="/events/<%= event.id %>/assign" method="post">
+        <input type="hidden" name="EventId" value="<%= event.id %>">
+        <select name="DJId">
+      <% DJs.map(DJ => { %>
+        <option value="<%= DJ.id %>"><%= DJ.name %></option>
+      <% }); %>
+    </select>
+        <input type="submit">
+      </form>
+      <% if(locals.errorMessage){ %>
+        <hr>
+        <div class="alert alert-danger">
+          <strong>Oops!</strong>
+          <%= errorMessage %>.
+        </div>
+        <% } %>
+    </div>
+    <% include ../partials/footer %>
+</body>
+
+</html>

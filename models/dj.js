@@ -1,41 +1,17 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var DJ = sequelize.define('DJ', {
-    name: {
-      type: DataTypes.STRING,
-      validate: {
-        isEmpty: {
-          args: true,
-          msg: 'Nama tidak boleh kosong'
-        },
-        isAlphanumeric: {
-          args: true,
-          msg: 'Nama harus menggunakan alphanumeric'
-        }
-      }
-    },
+    name: DataTypes.STRING,
     phone: {
       type: DataTypes.STRING,
       validate: {
-        isEmpty: {
-          args: true,
-          msg: 'Nama tidak boleh kosong'
-        },
         isNumeric: {
           args: true,
           msg: 'Nomor telepon harus menggunakan angka'
         }
       }
     },
-    address: {
-      type: DataTypes.STRING,
-      validate: {
-        isEmpty: {
-          args: true,
-          msg: 'Alamat tidak boleh kosong'
-        }
-      }
-    },
+    address: DataTypes.STRING,
     detail: DataTypes.TEXT,
     UserId: DataTypes.INTEGER
   });

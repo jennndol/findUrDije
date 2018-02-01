@@ -1,0 +1,22 @@
+<nav class="navbar navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        DJFinder
+      </a>
+    </div>
+      <p class="navbar-text"><a href="/djs" class="navbar-link">DJ</a></p>
+      <%if(locals.isDJ==false){%>
+        <p class="navbar-text"><a href="/events" class="navbar-link">Events</a></p>
+      <% } %>
+      <%if(locals.isDJ){%>
+        <p class="navbar-text"><a href="/books" class="navbar-link">Booking</a></p>
+      <% } %>
+      <%if(locals.session){%>
+        <p class="navbar-text navbar-right"><a href="/auth/logout" class="navbar-link">Logout</a></p>
+        <p class="navbar-text navbar-right">Signed in as <a href="/<%= session %>" class="navbar-link"><%=session%></a></p>
+      <%}else{%>
+        <p class="navbar-text navbar-right"><a href="/auth/login" class="navbar-link">Login</a></p>
+      <%}%>
+  </div>
+</nav>

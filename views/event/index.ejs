@@ -1,34 +1,54 @@
-<h2>Event List</h2>
-<table>
-  <tr>
-    <td>No</td>
-    <td>Name</td>
-    <td>Detail</td>
-    <td>Date</td>
-    <td>Created By</td>
-    <td>Action</td>
-  </tr>
-  <% events.forEach((event, i) => { %>
-    <tr>
-      <td>
-        <%= i + 1 %>
-      </td>
-      <td>
-        <%= event.name %>
-      </td>
-      <td>
-        <%= event.detail %>
-      </td>
-      <td>
-        <%= event.date %>
-      </td>
-      <td>
-        <%= event.DJSeeker.name %>
-      </td>
-      <td>
-        <a href="/events/edit/<%= event.id %>">Edit</a>
-        <a href="/events/delete/<%= event.id %>">Delete</a>
-      </td>
-    </tr>
-    <% }); %>
-</table>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../partials/head %>
+    <title>
+      <%= title %>
+    </title>
+</head>
+
+<body>
+  <% include ../partials/nav  %>
+    <div class="container">
+      <h2>Event List</h2>
+      <% if (locals.events.length==0){%>
+        Tidak ada event yang anda buat, <a href="/events/add" class="btn btn-success">Buat Event</a>
+        <% } else { %>
+          <table class="table table-stripped">
+            <tr>
+              <td>No</td>
+              <td>Name</td>
+              <td>Detail</td>
+              <td>Date</td>
+              <td>Action</td>
+            </tr>
+            <% events.forEach((event, i) => { %>
+              <tr>
+                <td>
+                  <%= i + 1 %>
+                </td>
+                <td>
+                  <a href="/events/<%=event.id%>">
+                  <%= event.name %></a>
+                </td>
+                <td>
+                  <%= event.detail %>
+                </td>
+                <td>
+                  <%= event.date %>
+                </td>
+                <td>
+                  <a href="/events/edit/<%= event.id %>">Edit</a>
+                  <a href="/events/delete/<%= event.id %>">Delete</a>
+                </td>
+              </tr>
+              <% }); %>
+          </table>
+          <% } %>
+          <a href="/events/add" class="btn btn-block btn-primary" style="margin-bottom:3em;">Add Event</a>
+    </div>
+    <% include ../partials/footer %>
+</body>
+
+</html>
