@@ -12,6 +12,7 @@ const eventRouter = require('./routers/eventRouter');
 const djRouter = require('./routers/dj');
 const bookRouter = require('./routers/bookRouter');
 const authRouter = require('./routers/authRouter');
+const searchRouter = require('./routers/searchRouter');
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({
@@ -31,6 +32,7 @@ app.use(flash());
 
 app.use(express.static('public'));
 
+app.use('/search', searchRouter);
 app.use('/books', bookRouter);
 app.use('/genres', genreRouter);
 app.use('/events', eventRouter);

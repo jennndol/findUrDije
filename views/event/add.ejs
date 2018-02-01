@@ -29,6 +29,13 @@
           </div>
           <input class="btn btn-primary btn-block" type="submit" name="Submit">
         </form>
+        <% if(locals.errorMessage){ %>
+          <hr>
+          <div class="alert alert-danger">
+            <strong>Oops!</strong>
+            <%= errorMessage %>.
+          </div>
+        <% } %>
       </div>
     </div>
     <br>
