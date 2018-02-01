@@ -16,7 +16,6 @@
     <th>Nama</th>
     <th>Tanggal</th>
     <th>Status</th>
-    <th>Action</th>
   </tr>
   <% books.forEach((book, number) => { %>
     <tr>
@@ -27,18 +26,16 @@
       <td>
         <%= book.Event.dateHumanize() %>
       </td>
+
       <td>
-        <% if (book.isApproved == null) { %>
-          <span class="label label-default">MENUNGGU</span>
-          <% } else if(book.isApproved == false) { %>
+        <% if (book.isApproved == null){ %>
+          <a href="/books/accept/<%= book.EventId %>">TERIMA</a>
+          <a href="/books/ignore/<%= book.EventId %>">TOLAK</a>
+        <% } else if(book.isApproved == false) { %>
             <span class="label label-danger">DITOLAK</span>
-            <% } else { %>
-              <span class="label label-info">DITERIMA</span>
-          <% } %>
-      </td>
-      <td>
-        <a href="/books/accept/<%= book.EventId %>">TERIMA</a>
-        <a href="/books/ignore/<%= book.EventId %>">TOLAK</a>
+        <% } else { %>
+            <span class="label label-info">DITERIMA</span>
+        <% } %>
       </td>
     </tr>
     <% }); %>

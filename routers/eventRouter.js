@@ -32,7 +32,7 @@ router.get('/', sessionChecker, (req, res) => {
             });
         })
         .catch(error => {
-          console.log(error);
+          res.send(error);
         })
     } else {
       res.redirect('/books');
@@ -44,7 +44,10 @@ router.get('/add', sessionChecker, (req, res) => {
   res.render('./event/add', {
     title: 'Add New Event',
     min: moment().format("YYYY-MM-DD"),
-    session: req.session.username
+
+    session: req.session.username,
+    errorMessage: req.flash().errorMessage
+
   });
 });
 
@@ -68,14 +71,16 @@ router.post('/add', (req, res) => {
               res.send(row);
             })
             .catch(error => {
-              res.send(error);
+              req.flash('errorMessage', error.message);
+              res.redirect('/events/add');
             });
         })
         .catch(error => {
-          res.send(error);
+          req.flash('errorMessage', error.message);
+          res.redirect('/events/add');
         });
     } else {
-      console.log('Bukan DJ');
+      res.redirect('/books');
     }
   })
 });
@@ -141,13 +146,16 @@ router.get('/:id', (req, res) => {
           res.render('./event/detail', {
             event: event,
             DJs: DJs,
-            session: req.session.username
+            session: req.session.username,
+            errorMessage: req.flash().errorMessage
           });
         })
-        .catch();
+        .catch(error => {
+          res.send('ERROR 404');
+        });
     })
     .catch(error => {
-      console.log(error);
+      res.send('ERROR 404');
     });
 });
 
@@ -156,13 +164,13 @@ router.post('/:id/assign', (req, res) => {
     EventId: req.body.EventId,
     DJId: req.body.DJId
   };
-  models.Book.create(obj)
-    .then(affectedRow => {
-      console.log(affectedRow);
-      res.redirect(`/events/${affectedRow.EventId}`);
+  models.Book.findOrCreate({
+      where: obj,
+      defaults: obj
     })
-    .catch(error => {
-      console.log(error);
+    .spread((book, isCreated) => {
+      isCreated ? req.flash('successMessage', `Data telah berhasil disimpan`) : req.flash('errorMessage', `DJ sudah ada dalam list event anda`);
+      res.redirect(`/events/${req.params.id}`);
     });
 });
 

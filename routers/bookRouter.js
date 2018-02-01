@@ -45,8 +45,8 @@ router.get('/', sessionChecker, (req, res) => {
 router.get('/accept/:id', (req, res) => {
   models.Book.findById(req.params.id)
     .then(book => {
-      book.isApproved = true;
-      book.save()
+        book.isApproved = true;
+        book.save()
         .then(row => {
           req.flash('successMessage', 'Anda telah menerima undangan')
           res.redirect('/books')
