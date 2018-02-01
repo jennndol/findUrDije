@@ -23,7 +23,9 @@ router.get('/', sessionChecker, (req, res) => {
               console.log(books);
               res.render('./book/index', {
                 title: 'Undangan',
-                books: books
+                books: books,
+                successMessage: req.flash().successMessage,
+                errorMessage: req.flash().errorMessage
               })
             })
             .catch(error => {
@@ -45,8 +47,8 @@ router.get('/accept/:id', (req, res) => {
       book.isApproved = true;
       book.save()
         .then(row => {
+          req.flash('successMessage', 'Anda telah menerima undangan')
           res.redirect('/books')
-          console.log(row);
         })
         .catch(error => {
           console.log(error);
@@ -63,8 +65,8 @@ router.get('/ignore/:id', (req, res) => {
       book.isApproved = false;
       book.save()
         .then(row => {
-          res.redirect('/books')
-          console.log(row);
+          req.flash('errorMessage', 'Anda telah menolak undangan');
+          res.redirect('/books');
         })
         .catch(error => {
           console.log(error);
