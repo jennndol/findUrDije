@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "admin",
-    "database": "findurdije_development",
-    "host": "127.0.0.1",
+    "username": "fefzdkap",
+    "password": "weS-ndNKlkccW8JJMhTdu1SPW9unB2H2",
+    "database": "fefzdkap",
+    "host": "baasu.db.elephantsql.com",
     "dialect": "postgres"
   }
 }
