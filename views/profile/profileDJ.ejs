@@ -2,11 +2,13 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <title></title>
+  <% include ../partials/head %>
+    <title><%= title %></title>
 </head>
 
 <body>
+  <% include ../partials/nav %>
+    <div class="container">
   <h1>Profile</h1>
   <table>
     <thead>
@@ -37,11 +39,15 @@
           <%=dataDj.detail%>
         </td>
         <td>
-          <a href="/<%=username%>/edit">edit</a>
+          <%if(locals.session == locals.username){%>
+            <a href="/<%=username%>/edit">edit</a>
+          <%}%>
         </td>
       </tr>
     </tbody>
   </table>
+</div>
+<% include ../partials/footer %>
 </body>
 
 </html>

@@ -3,7 +3,9 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) =>{
-  models.DJ.findAll().then(dataDj =>{
+  models.DJ.findAll({
+    include: [models.User]
+  }).then(dataDj =>{
     res.render('dj/dj', {title:'List DJ', dataDj: dataDj})
   }).catch(err =>{console.log(err)})
 })
