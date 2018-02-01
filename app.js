@@ -24,7 +24,9 @@ app.use(session({
   secret: 'hackTiv8IsTheBestIloVeIt',
   cookie: {
     maxAge: 3600000
-  }
+  },
+  resave: true,
+  saveUninitialized: true
 }));
 
 app.use(cookieParser());
