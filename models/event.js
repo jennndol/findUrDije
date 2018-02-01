@@ -3,7 +3,15 @@ const moment = require('moment');
 
 module.exports = (sequelize, DataTypes) => {
   var Event = sequelize.define('Event', {
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Nama event tidak boleh kosong'
+        }
+      }
+    },
     detail: DataTypes.TEXT,
     date: {
       type: DataTypes.DATE,

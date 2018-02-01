@@ -10,7 +10,7 @@ router.get('/', (req, res) =>{
 
 router.get('/add', (req, res) =>{
   models.DJ.findAll().then(dataDj =>{
-    res.render('dj/add', {title:'Add DJ', dataDj: dataDj})
+    res.render('dj/addDj', {title:'Add DJ', dataDj: dataDj})
   }).catch(err =>{console.log(err)})
 })
 
