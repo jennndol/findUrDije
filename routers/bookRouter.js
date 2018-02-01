@@ -26,7 +26,8 @@ router.get('/', sessionChecker, (req, res) => {
                 books: books,
                 successMessage: req.flash().successMessage,
                 errorMessage: req.flash().errorMessage,
-                session: req.session.username
+                session: req.session.username,
+                isDJ: req.session.isDJ
               })
             })
             .catch(error => {

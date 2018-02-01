@@ -6,7 +6,8 @@ router.get('/:id', (req, res) =>{
   models.findById(req.params.id).then(dataSeeker =>{
     res.render('book', {title: Book,
       dataSeeker: dataSeeker,
-      session: req.session.username})
+      session: req.session.username,
+    isDJ: req.session.isDJ})
   })
 })
 
