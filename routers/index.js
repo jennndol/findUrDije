@@ -2,6 +2,10 @@ const models = require('../models');
 const express = require('express');
 const router = express.Router();
 
+router.get('/', (req, res) =>{
+  res.redirect('/auth/login')
+})
+
 router.get('/:username', (req, res) =>{
   models.User.findOne({
   where: {username: req.params.username},
@@ -12,12 +16,12 @@ router.get('/:username', (req, res) =>{
       if(type.name == 'DJ'){
         models.DJ.findOne({where: {UserId: data.id} })
         .then(dataDj =>{
-          res.render('profile/profileDJ', {title: 'Profile', dataDj: dataDj, username: data.username})
+          res.render('profile/profileDJ', {title: 'Profile', dataDj: dataDj, username: data.username, session: req.session.username})
         })
       }else{
         models.DJSeeker.findOne({where: {UserId: data.id} })
         .then(dataSeeker =>{
-          res.render('profile/profileSeeker', {title: 'Profile', dataSeeker: dataSeeker, username: data.username})
+          res.render('profile/profileSeeker', {title: 'Profile', dataSeeker: dataSeeker, username: data.username, session: req.session.username})
         })
       }
     })

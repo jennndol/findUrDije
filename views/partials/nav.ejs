@@ -5,6 +5,11 @@
         DJFinder
       </a>
     </div>
-    <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Mark Otto</a></p>
+    <p class="navbar-text navbar-right"><a href="/djs" class="navbar-link">DJ</a></p>
+    <%if(locals.session){%>
+      <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link"><%=session%></a></p>
+    <%}else{%>
+      <p class="navbar-text navbar-right"><a href="#" class="navbar-link"></a></p>
+    <%}%>
   </div>
 </nav>

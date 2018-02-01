@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(session({
   secret: 'hackTiv8IsTheBestIloVeIt',
   cookie: {
-    maxAge: 60000
+    maxAge: 3600000
   }
 }));
 
