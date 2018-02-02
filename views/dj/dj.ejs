@@ -9,8 +9,7 @@
 <body>
   <% include ../partials/nav %>
     <div class="container">
-    <!-- <%=JSON.stringify(dataDj)%> -->
-    <table class="table table-stripped">
+    <table class="table table-striped">
       <thead>
         <tr>
           <th>ID</th>
@@ -29,7 +28,7 @@
             <td><%=dj.address%></td>
             <td><%=dj.detail%></td>
             <td>
-              <a href="/<%=dj.User.username%>">lihat profile</a>
+              <a href="/<%=dj.User.username%>">Lihat Profile</a>
             </td>
           </tr>
         <%})%>

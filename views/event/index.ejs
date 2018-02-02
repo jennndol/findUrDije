@@ -15,18 +15,18 @@
       <% if (locals.events.length==0){%>
         Tidak ada event yang anda buat, <a href="/events/add" class="btn btn-success">Buat Event</a>
         <% } else { %>
-          <table class="table table-stripped">
+          <table class="table table-striped">
             <tr>
-              <td>No</td>
-              <td>Name</td>
-              <td>Detail</td>
-              <td>Date</td>
-              <td>Action</td>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Detail</th>
+              <th>Date</th>
+              <th>Action</th>
             </tr>
             <% events.forEach((event, i) => { %>
               <tr>
                 <td>
-                  <%= i + 1 %>
+                  <%= event.id %>
                 </td>
                 <td>
                   <a href="/events/<%=event.id%>">

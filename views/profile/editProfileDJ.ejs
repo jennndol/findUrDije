@@ -9,18 +9,48 @@
 <body>
   <% include ../partials/nav %>
     <div class="container">
-    <table>
-      <thead>Edit Profile DJ: </thead>
-      <tbody>
+      <h2>Edit Profile</h2>
         <form class="" action="/<%=username%>/edit" method="post">
-          <input type="text" placeholder="input name" name="name" value="<%=dataDj.name%>">
-          <input type="text" placeholder="input phone" name="phone" value="<%=dataDj.phone%>">
-          <input type="text" placeholder="input address" name="address" value="<%=dataDj.address%>">
-          <input type="text" placeholder="input detail" name="detail" value="<%=dataDj.detail%>">
-          <button>Submit</button>
+
+          <div class="form-group">
+            <label>Name:</label>
+            <input type="text" class="form-control" placeholder="input name" name="name" value="<%=dataDj.name%>">
+          </div>
+
+          <div class="form-group">
+            <label>Phone:</label>
+            <input type="text" class="form-control" placeholder="input phone" name="phone" value="<%=dataDj.phone%>">
+          </div>
+
+          <div class="form-group">
+            <label>Address:</label>
+            <input type="text" class="form-control" placeholder="input address" name="address" value="<%=dataDj.address%>">
+          </div>
+
+          <div class="form-group">
+            <label>Detail:</label>
+            <textarea name="detail" rows="8" cols="80" placeholder="input detail" class="form-control">
+              <%=dataDj.detail%>
+            </textarea>
+          </div>
+          <% if(locals.errorMessage){ %>
+            <hr>
+            <div class="alert alert-danger">
+              <strong>Oops!</strong>
+              <%= errorMessage %>.
+            </div>
+            <% } %>
+          <% if(locals.successMessage){ %>
+            <hr>
+            <div class="alert alert-success">
+              <strong>Yeay!</strong>
+              <%= successMessage %>.
+            </div>
+            <% } %>
+          <button type="submit" class="btn btn-block btn-success">Submit</button>
         </form>
-      </tbody>
-    </table>
+
+
     <% include ../partials/footer %>
     </body>
 
