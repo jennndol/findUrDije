@@ -9,18 +9,42 @@
 <body>
   <% include ../partials/nav %>
     <div class="container">
-    <table>
-      <thead>Edit Profile DJ Seeker: </thead>
-      <tbody>
+      <h2>Edit Profile</h2>
         <form class="" action="/<%=username%>/edit" method="post">
-          <input type="text" placeholder="input name" name="name" value="<%=dataSeeker.name%>">
-          <input type="text" placeholder="input phone" name="phone" value="<%=dataSeeker.phone%>">
-          <input type="text" placeholder="input address" name="address" value="<%=dataSeeker.address%>">
-          <button>Submit</button>
+
+          <div class="form-group">
+            <label>Name:</label>
+            <input type="text" class="form-control" placeholder="input name" name="name" value="<%=dataSeeker.name%>">
+          </div>
+
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="text" class="form-control" placeholder="input phone" name="phone" value="<%=dataSeeker.phone%>">
+          </div>
+
+          <div class="form-group">
+            <label>Address:</label>
+            <input type="text" class="form-control" placeholder="input address" name="address" value="<%=dataSeeker.address%>">
+          </div>
+
+          <% if(locals.errorMessage){ %>
+            <hr>
+            <div class="alert alert-danger">
+              <strong>Oops!</strong>
+              <%= errorMessage %>.
+            </div>
+            <% } %>
+          <% if(locals.successMessage){ %>
+            <hr>
+            <div class="alert alert-success">
+              <strong>Yeay!</strong>
+              <%= successMessage %>.
+            </div>
+            <% } %>
+
+          <button type="submit" class="btn btn-success btn-block">Submit</button>
         </form>
-      </tbody>
-    </table>
-    <% include ../partials/footer %>
+      <% include ../partials/footer %>
     </body>
 
   </html>

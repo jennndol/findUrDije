@@ -1,7 +1,50 @@
-<form action="/events/edit/<%= event.id %>" method="post">
-  <input type="text" name="name" placeholder="name" value="<%= event.name %>"><br>
-  <textarea name="detail" rows="8" cols="80" placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do"><%= event.detail %></textarea><br>
-  <input type="date" name="date" placeholder="date" value="<%= event.date.toISOString().slice(0,10) %>"><br>
-  <input type="number" name="DJSeekerId" placeholder="DJSeekerId" value="<%= event.DJSeekerId %>"><br>
-  <input type="submit" name="Submit">
-</form>
+
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../partials/head %>
+    <title>
+      <%= title %>
+    </title>
+</head>
+
+<body>
+  <% include ../partials/nav %>
+    <div class="container">
+      <div class="col-md-6 col-md-offset-3">
+        <h3>Edit Event</h3>
+        <hr>
+        <form action="/events/edit/<%= event.id %>" method="post">
+          <div class="form-group">
+            <label for="username">Name:</label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="name" value="<%= event.name %>"><br>
+          </div>
+
+          <div class="form-group">
+            <label for="detail">Detail:</label>
+            <textarea class="form-control" name="detail" rows="8" cols="80" placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."><%= event.detail %></textarea><br>
+          </div>
+
+          <div class="form-group">
+            <label for="date">Date:</label>
+            <input class="form-control" type="date" value="<%= event.date.toISOString().slice(0,10) %>" name="date" min:<%= min %>><br>
+          </div>
+
+          <input class="btn btn-primary btn-block" type="submit" name="Submit">
+        </form>
+        <% if(locals.errorMessage){ %>
+          <hr>
+          <div class="alert alert-danger">
+            <strong>Oops!</strong>
+            <%= errorMessage %>.
+          </div>
+        <% } %>
+      </div>
+    </div>
+    <br>
+    <% include ../partials/footer %>
+</body>
+</html>
