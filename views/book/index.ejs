@@ -25,11 +25,12 @@
       </td>
       <td>
         <%= book.Event.dateHumanize() %>
+        (<%= book.Event.date.toISOString().slice(0,10) %>)
       </td>
       <td>
         <% if (book.isApproved == null){ %>
-          <a href="/books/accept/<%= book.EventId %>">TERIMA</a>
-          <a href="/books/ignore/<%= book.EventId %>">TOLAK</a>
+          <a href="/books/accept/<%= book.EventId %>" class="btn btn-success">TERIMA</a>
+          <a href="/books/ignore/<%= book.EventId %>" class="btn btn-danger">TOLAK</a>
         <% } else if(book.isApproved == false) { %>
             <span class="label label-danger">DITOLAK</span>
         <% } else { %>

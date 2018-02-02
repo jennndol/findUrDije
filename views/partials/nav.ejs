@@ -5,7 +5,9 @@
         DJFinder
       </a>
     </div>
-      <p class="navbar-text"><a href="/djs" class="navbar-link">DJ</a></p>
+      <% if(session){ %>
+        <p class="navbar-text"><a href="/djs" class="navbar-link">DJ</a></p>
+      <% } %>
       <%if(locals.isDJ==false){%>
         <p class="navbar-text"><a href="/events" class="navbar-link">Events</a></p>
       <% } %>
