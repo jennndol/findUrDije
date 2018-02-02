@@ -52,7 +52,7 @@ router.get('/add', sessionChecker, (req, res) => {
   });
 });
 
-router.post('/add', (req, res) => {
+router.post('/add', sessionChecker,(req, res) => {
   djChecker(req.session.TypeId, (isDJ) => {
     if (!isDJ) {
       models.DJSeeker.findOne({
@@ -87,13 +87,15 @@ router.post('/add', (req, res) => {
   })
 });
 
-router.get('/edit/:id', (req, res) => {
+router.get('/edit/:id', sessionChecker, (req, res) => {
   models.Event.findById(req.params.id)
     .then(event => {
       res.render('./event/edit', {
         event: event,
         session: req.session.username,
-        isDJ: req.session.isDJ
+        isDJ: req.session.isDJ,
+        title: 'Edit Profile',
+        min: moment().format("YYYY-MM-DD")
       });
     })
     .catch(error => {
@@ -105,8 +107,7 @@ router.post('/edit/:id', (req, res) => {
   let obj = {
     name: req.body.name,
     detail: req.body.detail,
-    date: req.body.date,
-    DJSeekerId: req.body.DJSeekerId
+    date: req.body.date
   };
   models.Event.update(obj, {
       where: {
@@ -116,7 +117,7 @@ router.post('/edit/:id', (req, res) => {
     .then((affectedRowTotal) => {
       console.log(affectedRowTotal);
       req.flash('successMessage', `berhasil mengubah event`);
-      res.redirect('/events')
+      res.redirect(`/events`)
     })
     .catch(error => {
       res.send(`Error 404`);

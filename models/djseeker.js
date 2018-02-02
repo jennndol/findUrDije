@@ -2,7 +2,15 @@
 module.exports = (sequelize, DataTypes) => {
   var DJSeeker = sequelize.define('DJSeeker', {
     name: DataTypes.STRING,
-    phone: DataTypes.STRING,
+    phone: {
+      type: DataTypes.STRING,
+      validate: {
+        isNumeric: {
+          args: true,
+          msg: 'Nomor telepon harus menggunakan angka'
+        }
+      }
+    },
     address: DataTypes.STRING,
     UserId: DataTypes.INTEGER
   });
